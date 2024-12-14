@@ -40,4 +40,4 @@
 3. Система должна автоматически реализовывать резервное копирование. И отправлять его в любое S3 хранилище
 4. Система должна обеспечивать качество данных и реализацию практик Data Governance
 
-**Технологический стек проекта**: Dagster, dbt, Python, SQL, Greenplum, Apache Spark 
+**Технологический стек проекта**: Dagster, dbt, Python, SQL, Greenplum, Apache Spark, Yandex DataLens 
