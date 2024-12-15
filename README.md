@@ -41,3 +41,6 @@
 4. Система должна обеспечивать качество данных и реализацию практик Data Governance
 
 **Технологический стек проекта**: Apache Luigi, dbt, Python, SQL, Greenplum, Apache Spark, Yandex DataLens 
+
+Реляционные модели данных для Bronze, Silver и Gold Layer: 
+1. [Bronze Layer](https://путь/к/ссылке)
