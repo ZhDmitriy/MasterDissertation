@@ -42,5 +42,7 @@
 
 **Технологический стек проекта**: Apache Luigi, dbt, Python, SQL, Greenplum, Apache Spark, Yandex DataLens 
 
-Реляционные модели данных (ERD диаграммы) для Bronze, Silver и Gold Layer: 
+Реляционные модели данных (ER-диаграммы) для Bronze, Silver и Gold Layer: 
 1. [Bronze Layer](https://путь/к/ссылке)
+2. [Silver Layer](https://путь/к/ссылке)
+3. [Gold Layer](https://путь/к/ссылке)
