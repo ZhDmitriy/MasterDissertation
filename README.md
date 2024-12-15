@@ -26,8 +26,8 @@
 1. Спроектировать витрины данных для 2 и более типовых аналитических отчетов
 2. Витрины данных должны поддерживать версионирование данных по SCD2, 3 или 4
 3. Витрины данных (и Gold Layer соответственно) должны быть спроектированы по методологии Dimensional Modeling (Схема "Звезда")
-4. Из-за возможных быстрых измнений в API, Silver Layer должен быть проектирован по методологии Data Vault
-5. Bronze Layer должен быть спроектирован по 2 нормальной форме с максимально денормализованными таблицами, но с поддержкой согласованности между ними
+4. Из-за возможных быстрых изменений в API, Silver Layer должен быть спроектирован по методологии Data Vault
+5. Bronze Layer должен быть спроектирован по 2 нормальной форме с денормализованными таблицами
 6. Аналитические отчеты должны быть спроектированы в BI системе Yandex DataLens
 7. Для реализации ETL процессов должен использоваться язык программирования Python и фреймворк Apache Spark. Инструменты dbt для трансформации данных, Apache Luigi для оркестрации ETL процессов
 8. Система должна быть гибкой и уметь перезапускаться за любой выбранный период времени, те данные можно было бы восстановить за любой отрезок времени
@@ -41,3 +41,8 @@
 4. Система должна обеспечивать качество данных и реализацию практик Data Governance
 
 **Технологический стек проекта**: Apache Luigi, dbt, Python, SQL, Greenplum, Apache Spark, Yandex DataLens 
+
+Реляционные модели данных (ER-диаграммы) для Bronze, Silver и Gold Layer: 
+1. [Bronze Layer](https://github.com/ZhDmitriy/MasterDissertation/blob/master/ERD%20Layers/Bronze.md)
+2. [Silver Layer](https://github.com/ZhDmitriy/MasterDissertation/blob/master/ERD%20Layers/Silver.md)
+3. [Gold Layer](https://github.com/ZhDmitriy/MasterDissertation/blob/master/ERD%20Layers/Gold.md)
