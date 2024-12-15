@@ -3,4 +3,6 @@
 
 class OAuthApi:
     """ Авторизация и получение токена для источника данных tiktok.com """
-    pass
+
+    def __init__(self):
+        self.BASE_URL = ""

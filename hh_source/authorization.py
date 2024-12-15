@@ -3,4 +3,7 @@
 
 class OAuthApi:
     """ Авторизация и получение токена для источника данных hh.ru """
-    pass
+
+    def __init__(self):
+        self.BASE_URL = "https://hh.ru/oauth/token"
+
