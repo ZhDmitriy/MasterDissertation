@@ -17,9 +17,10 @@
 
 **Бизнес требования**: 
 1. Использовать API социальных сетей и образрвательных платформ в качестве источников данных для пользовательской аналитики:
-* HH API: https://api.hh.ru/
+* Hh API: https://api.hh.ru/
 * Tik Tok API: https://developers.tiktok.com/doc/tiktok-api-v2-introduction/
 * Udemy API: https://www.udemy.com/developers
+* Stepik API: https://github.com/StepicOrg/Stepik-API
 2. Система должна помочь исследователям проводить аналитику на рынке образования, формировать типовые аналитические отчеты для образотвального рынка и поиска инсайтов.
 
 **Функциональные требования**: 
