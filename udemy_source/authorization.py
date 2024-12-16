@@ -1,6 +1,6 @@
-""" Источник данных udemy.com """
+""" Data source udemy.com """
 
 
 class OAuthApi:
-    """ Авторизация и получение токена для источника данных udemy.com """
+    """ Authorization and receipt of a token for a data source udemy.com """
     pass

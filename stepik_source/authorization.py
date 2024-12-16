@@ -1,4 +1,4 @@
-""" Источник данных stepik.org """
+""" Data source stepik.org """
 
 import requests
 import os
@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 
 class OAuthApi:
-    """ Авторизация и получение токена для источника данных stepik.org """
+    """ Authorization and receipt of a token for a data source stepik.org """
 
     def __init__(self):
         self.BASE_URL = "https://stepik.org/oauth2/token/"
@@ -18,6 +18,9 @@ class OAuthApi:
                                  data={'grant_type': 'client_credentials'},
                                  auth=auth
                                 )
-        return response.json()['access_token']
+        if response.status_code == 200:
+            return response.json()['access_token']
+        else:
+            return response.text
 
 

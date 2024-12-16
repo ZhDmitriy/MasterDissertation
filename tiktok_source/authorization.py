@@ -1,8 +1,8 @@
-""" Источник данных tiktok.com """
+""" Data source tiktok.com """
 
 
 class OAuthApi:
-    """ Авторизация и получение токена для источника данных tiktok.com """
+    """ Authorization and receipt of a token for a data source tiktok.com """
 
     def __init__(self):
         self.BASE_URL = ""
