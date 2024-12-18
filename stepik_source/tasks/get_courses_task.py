@@ -2,8 +2,8 @@
     Information about courses on platform Stepik.org
 """
 
-from luigi import Task, run, build, LocalTarget
 from stepik_source.authorization import OAuthApi
+import luigi
 import json
 from tqdm import tqdm
 import requests
@@ -30,9 +30,17 @@ class EndpointsCourseStepik:
             endpointsStepikCourse = yaml.safe_load(file)
             return endpointsStepikCourse['api_endpoints_stepik'][0]['get_course'][0]
 
-endpoitsStepikCourse = EndpointsCourseStepik()
+    def getEndpointStepikReviewsCourses(self) -> str:
+        with open(r"E:\DataPlatfromEducation\stepik_source\config.yaml", "r") as file:
+            endpointsStepikCourseReview = yaml.safe_load(file)
+            return endpointsStepikCourseReview['api_endpoints_stepik'][1]['get_reviews_courses'][0]
 
-class GetStepikCourses(Task):
+
+endpoitsStepikCourse = EndpointsCourseStepik()
+acsessToken = OAuthApi()
+
+
+class GetStepikCourses(luigi.Task):
 
     def run(self):
         nPage = 1
@@ -43,7 +51,6 @@ class GetStepikCourses(Task):
             'similar_authors': [], 'similar_course_lists': [],
             'similar_specializations': [], 'courses': []
         }
-        acsessToken = OAuthApi()
 
         def parseStepikCourseJson(response: json) -> NoReturn:
             for itemCourse in  response['course-lists']:
@@ -75,10 +82,10 @@ class GetStepikCourses(Task):
         pd.DataFrame(coursesData).to_csv(r"E:\DataPlatfromEducation\stepik_source\tasks_file\coursesStepik.csv")
 
     def output(self):
-        return LocalTarget(r"E:\DataPlatfromEducation\stepik_source\tasks_file\coursesStepik.csv")
+        return luigi.LocalTarget(r"E:\DataPlatfromEducation\stepik_source\tasks_file\coursesStepik.csv")
 
 
-class ValidationStepikCourses(Task):
+class ValidationStepikCourses(luigi.Task):
 
 
     def requires(self):
@@ -126,11 +133,54 @@ class ValidationStepikCourses(Task):
         return pd.DataFrame(validationCoursesData).to_csv(r"E:\DataPlatfromEducation\stepik_source\tasks_file\validationStepik.csv")
 
     def output(self):
-        return LocalTarget(r"E:\DataPlatfromEducation\stepik_source\tasks_file\validationStepik.csv")
+        return luigi.LocalTarget(r"E:\DataPlatfromEducation\stepik_source\tasks_file\validationStepik.csv")
 
+
+class GetCoursesReviewsStepik(luigi.Task):
+
+    def requires(self):
+        return ValidationStepikCourses()
+
+    def run(self):
+        courseReviewsData = {'id': [], 'course': [], 'user': [], 'score': [], 'text': [],
+                             'reply_text': [], 'reply_created_at ': [], 'reply_updated_at': [],
+                             'reply_created_by': [], 'reply_updated_by': [], 'create_date': [],
+                             'update_date': [], 'translations': [], 'epic_count': [],
+                             'abuse_count': [], 'vote_delta': [], 'vote': []}
+        validationDataCourse = pd.read_csv(r"E:\DataPlatfromEducation\stepik_source\tasks_file\validationStepik.csv")
+        courses = validationDataCourse['courses']
+
+        def makeRequestsCourseReviews(course: int) -> json:
+            endpointCourseReviewsStepik = f"{endpoitsStepikCourse.getEndpointStepikReviewsCourses()}={course}"
+            response = requests.get(url=endpointCourseReviewsStepik, headers={'Authorization': 'Bearer ' + acsessToken.getToken()}).json()
+            return response
+
+        for numCourse in courses:
+            print(numCourse)
+            responseReviewsCourse = makeRequestsCourseReviews(course=numCourse)
+            for itemReviewsCourse in responseReviewsCourse['course-reviews']:
+                courseReviewsData['id'].append(itemReviewsCourse['id'])
+                courseReviewsData['course'].append(itemReviewsCourse['course'])
+                courseReviewsData['user'].append(itemReviewsCourse['score'])
+                courseReviewsData['text'].append(itemReviewsCourse['text'])
+                courseReviewsData['reply_text'].append(itemReviewsCourse['reply_text'])
+                courseReviewsData['reply_updated_at'].append(itemReviewsCourse['reply_updated_at'])
+                courseReviewsData['reply_created_by'].append(itemReviewsCourse['reply_created_by'])
+                courseReviewsData['reply_updated_by'].append(itemReviewsCourse['reply_updated_by'])
+                courseReviewsData['create_date'].append(itemReviewsCourse['create_date'])
+                courseReviewsData['update_date'].append(itemReviewsCourse['update_date'])
+                courseReviewsData['translations'].append(itemReviewsCourse['translations'])
+                courseReviewsData['epic_count'].append(itemReviewsCourse['epic_count'])
+                courseReviewsData['abuse_count'].append(itemReviewsCourse['abuse_count'])
+                courseReviewsData['vote_delta'].append(itemReviewsCourse['vote_delta'])
+                courseReviewsData['vote'].append(itemReviewsCourse['vote'])
+        return pd.DataFrame(courseReviewsData).to_csv(r"E:\DataPlatfromEducation\stepik_source\tasks_file\courseReviewsDataStepik.csv")
+
+    def output(self):
+        return luigi.LocalTarget(r"E:\DataPlatfromEducation\stepik_source\tasks_file\courseReviewsDataStepik.csv")
 
 
 if __name__ == '__main__':
-    build([
-        ValidationStepikCourses()
-    ], workers=1, local_scheduler=True)
+    luigi.build([
+        GetCoursesReviewsStepik()
+    ])

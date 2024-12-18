@@ -1,3 +1,5 @@
 api_endpoints_stepik:
   - get_course:
       - "https://stepik.org:443/api/course-lists?page"
+  - get_reviews_courses:
+      - "https://stepik.org:443/api/course-reviews?course"
