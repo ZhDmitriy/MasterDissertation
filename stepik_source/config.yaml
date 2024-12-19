@@ -3,3 +3,15 @@ api_endpoints_stepik:
       - "https://stepik.org:443/api/course-lists?page"
   - get_reviews_courses:
       - "https://stepik.org:443/api/course-reviews?course"
+  - get_users:
+      - "https://stepik.org:443/api/users"
+      - "https://stepik.org:443/api/user-activity-summaries"
+      - "https://stepik.org:443/api/user-courses"
+  - get_catalog_course:
+      - "https://stepik.org:443/api/catalog-blocks"
+  - get_certificates_user_course:
+      - "https://stepik.org:443/api/certificates"
+  - get_specializations_by_user_course:
+      - "https://stepik.org:443/api/specializations"
+  - get_cities:
+      - "https://stepik.org:443/api/cities"

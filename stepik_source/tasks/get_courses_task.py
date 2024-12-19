@@ -180,6 +180,29 @@ class GetCoursesReviewsStepik(luigi.Task):
         return luigi.LocalTarget(r"E:\DataPlatfromEducation\stepik_source\tasks_file\courseReviewsDataStepik.csv")
 
 
+class ValidationCoursesReviewsStepik(luigi.Task):
+
+    def requires(self):
+        return GetCoursesReviewsStepik()
+
+    def run(self):
+        validationToReviewsCourse = pd.read_csv(r"E:\DataPlatfromEducation\stepik_source\tasks_file\courseReviewsDataStepik.cs")
+        pass
+
+    def output(self):
+        pass
+
+class GetCoursePeriodStatistics(luigi.Task):
+
+    def requires(self):
+        return GetCoursesReviewsStepik()
+
+    def run(self):
+        pass
+
+    def output(self):
+        pass 
+
 if __name__ == '__main__':
     luigi.build([
         GetCoursesReviewsStepik()
