@@ -47,3 +47,6 @@
 1. [Bronze Layer](https://github.com/ZhDmitriy/MasterDissertation/blob/master/erd_layers/Bronze.md)
 2. [Silver Layer](https://github.com/ZhDmitriy/MasterDissertation/blob/master/erd_layers/Silver.md)
 3. [Gold Layer](https://github.com/ZhDmitriy/MasterDissertation/blob/master/erd_layers/Gold.md)
+
+Data Governance поддерживается за счет DAG, имплементированого в luigi: 
+![image](https://github.com/user-attachments/assets/f5ca68a5-915c-461c-bd50-5d65e88227ff)
