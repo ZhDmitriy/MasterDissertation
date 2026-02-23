@@ -1,0 +1,8 @@
+faker>=19.0.0
+pandas>=1.5.0
+boto3
+pyarrow
+fastparquet
+pycountry
+clickhouse-connect>=0.6.8
+pydantic
